@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:echo_booking_admin/core/theme/colors.dart';
+import 'package:echo_booking_admin/feature/presentation/pages/screen_turf_update/screen_turf_view.dart';
 import 'package:echo_booking_admin/feature/presentation/provider/turf_provider/turf_provider.dart';
 import 'package:echo_booking_admin/feature/presentation/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +16,15 @@ class TabReviews extends StatefulWidget {
 }
 
 class _TabReviewsState extends State<TabReviews> {
+@override
+  void initState() {
+    log("inistate called");
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     // Provider.of<TurfProvider>(context,listen: false).reviewPendigsTurfsEvent();
+    //context.watch<TurfProvider>();
     return Padding(
       padding: const EdgeInsets.all(40),
       child: Container(
@@ -107,68 +114,67 @@ class _TabReviewsState extends State<TabReviews> {
                   }
                   final data = snapshot.data!;
                   return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            final data = snapshot.data![index];
-                            return Table(
-                              border: TableBorder.all(),
-                              children: [
-                                TableRow(children: [
-                                  //Nomber of turfs
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                        child: TableCell(
-                                            child:
-                                                TextWidget(text: "${index + 1}"))),
-                                  ),
-                                  //Owner name-----------
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                        child: TableCell(
-                                            child:
-                                                TextWidget(text: data.ownerName))),
-                                  ),
-                                  //Owner email--------------------
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                        child: TableCell(
-                                            child:
-                                                TextWidget(text: data.ownerEmail))),
-                                  ),
-                                  //turf name------------------
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                        child: TableCell(
-                                            child: TextWidget(text: data.turfName))),
-                                  ),
-                                  // catogery-------------
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                        child: TableCell(
-                                            child: TextWidget(text: data.catogery))),
-                                  ),
-                                  //Action--------------------
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Center(
-                                        child: TableCell(
-                                            child: ElevatedButton(
-                                                onPressed: () {
-                                                  
-                                                },
-                                                child: Text("View")))),
-                                  ),
-                                ])
-                              ],
-                            );
-                          },
-                        );
+                    shrinkWrap: true,
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      final data = snapshot.data![index];
+                      return Table(
+                        border: TableBorder.all(),
+                        children: [
+                          TableRow(children: [
+                            //Nomber of turfs
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                  child: TableCell(
+                                      child: TextWidget(text: "${index + 1}"))),
+                            ),
+                            //Owner name-----------
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                  child: TableCell(
+                                      child: TextWidget(text: data.ownerName))),
+                            ),
+                            //Owner email--------------------
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                  child: TableCell(
+                                      child:
+                                          TextWidget(text: data.ownerEmail))),
+                            ),
+                            //turf name------------------
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                  child: TableCell(
+                                      child: TextWidget(text: data.turfName))),
+                            ),
+                            // catogery-------------
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                  child: TableCell(
+                                      child: TextWidget(text: data.catogery))),
+                            ),
+                            //Action--------------------
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                  child: TableCell(
+                                      child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.to(() => ScreenTurfView(
+                                                turfModel: data));
+                                          },
+                                          child: Text("View")))),
+                            ),
+                          ])
+                        ],
+                      );
+                    },
+                  );
                 },
               )
             ],

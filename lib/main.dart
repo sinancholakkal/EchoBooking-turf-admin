@@ -7,6 +7,7 @@ import 'package:echo_booking_admin/feature/presentation/provider/turf_provider/t
 import 'package:echo_booking_admin/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -27,9 +28,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context)=>TurfProvider())
       ],
-      child: MaterialApp(
-        home: ScreenHome(),
-      ),
-    );
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+          home: ScreenHome(initialTab: 0,),
+        ),
+      );
   }
 }

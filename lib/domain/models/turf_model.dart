@@ -11,8 +11,12 @@ class TurfModel {
   final String includes;
   final String landmark;
   final bool reviewStatus;
-  List<String>?images;
+  List<dynamic>images;
+  final String ownerId;
+  final String turfId;
   TurfModel({
+    required this.ownerId,
+    required this.turfId,
     required this.ownerName,
     required this.ownerEmail,
     required this.turfName,
@@ -24,7 +28,7 @@ class TurfModel {
     required this.catogery,
     required this.includes,
     required this.landmark,
-     this.images,
-     required this.reviewStatus
+    required this.images,
+    required this.reviewStatus
   });
 }

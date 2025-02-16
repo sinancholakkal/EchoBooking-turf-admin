@@ -39,6 +39,7 @@ dependencies:
   get: ^4.7.2
   easy_sidemenu: ^0.6.1
   provider: ^6.1.2
+  fluttertoast: ^8.2.12
 
 dev_dependencies:
   flutter_test:

@@ -8,19 +8,22 @@ import 'package:echo_booking_admin/feature/presentation/widgets/heading_text.dar
 import 'package:flutter/material.dart';
 
 class ScreenHome extends StatefulWidget {
-  const ScreenHome({super.key});
+  int initialTab;
+   ScreenHome({super.key,required this.initialTab});
 
   @override
   State<ScreenHome> createState() => _ScreenHomeState();
 }
 
 class _ScreenHomeState extends State<ScreenHome> {
-  PageController pageController = PageController();
-  SideMenuController sideMenu = SideMenuController();
+  late PageController pageController;
+  late SideMenuController sideMenu;
 
   late List<SideMenuItem> items;
   @override
   void initState() {
+    pageController = PageController(initialPage: widget.initialTab);
+    sideMenu = SideMenuController(initialPage: widget.initialTab);
     items = [
       sideMenuItem(title: "Owners", icon: Icons.person),
       sideMenuItem(title: "Users", icon: Icons.supervised_user_circle_sharp),
@@ -30,7 +33,9 @@ class _ScreenHomeState extends State<ScreenHome> {
       pageController.jumpToPage(index);
     });
     super.initState();
+
   }
+  
 
   SideMenuItem sideMenuItem({required String title, required IconData icon}) {
     return SideMenuItem(
@@ -40,7 +45,12 @@ class _ScreenHomeState extends State<ScreenHome> {
         },
         icon: Icon(icon));
   }
-
+@override
+  void dispose() {
+    pageController.dispose();
+    sideMenu.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
