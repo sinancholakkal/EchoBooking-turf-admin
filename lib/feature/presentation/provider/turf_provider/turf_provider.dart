@@ -20,7 +20,7 @@ class TurfProvider extends ChangeNotifier {
       if (turfDocs.docs.isNotEmpty) {
         for (var turf in turfDocs.docs) {
           final turfData = turf.data();
-          if (turfData["reviewStatus"] == false) {
+          if (turfData["reviewStatus"] == "false") {
             log(turfData.toString());
 
             final turfModel = TurfModel(
@@ -48,11 +48,11 @@ class TurfProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> upproveTurfEvent(String ownerId, String turfId) async {
+  Future<void> upproveOrRejectTurfEvent(String ownerId, String turfId,String status) async {
     final instance = FirebaseFirestore.instance;
     final owner = instance.collection("owner").doc(ownerId);
     await owner.collection("turfs").doc(turfId).update({
-      "reviewStatus": true,
+      "reviewStatus": status,
     });
   }
 }

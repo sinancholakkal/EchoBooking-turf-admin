@@ -144,22 +144,37 @@ class _ScreenTurfUpdateState extends State<ScreenTurfView> {
 
                           height20,
                           //Approve button--------------
-                          Center(
-                            child: CustomButton(
-                              text: "Approve Turf",
-                              onTap: () {
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            spacing: 8,
+                            children: [
+                              CustomButton(
+                                text: "Approve Turf",
+                                onTap: () {
+                                  alertBox(context: context, onPressed: ()async{
+                                    Navigator.pop(context);
+                                   loadingWidget(context);
+                                    Provider.of<TurfProvider>(context,listen: false).upproveOrRejectTurfEvent(widget.turfModel.ownerId, widget.turfModel.turfId,"true");
+                                    await Future.delayed(Duration(seconds: 3));
+                                   Provider.of<TurfProvider>(context,listen: false).reviewPendigsTurfsEvent();
+                                   Navigator.pop(context);
+                                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>ScreenHome(initialTab: 2,)));
+                                  }, title: "Approve", content: "Are you sure want to approve this turf?");
+                                },
+                                width: 170,
+                              ),
+                              CustomButton(width: 160,text: "Reject Turf", onTap: (){
                                 alertBox(context: context, onPressed: ()async{
-                                  Navigator.pop(context);
-                                 loadingWidget(context);
-                                  Provider.of<TurfProvider>(context,listen: false).upproveTurfEvent(widget.turfModel.ownerId, widget.turfModel.turfId);
-                                  await Future.delayed(Duration(seconds: 3));
-                                 Provider.of<TurfProvider>(context,listen: false).reviewPendigsTurfsEvent();
-                                 Navigator.pop(context);
-                                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>ScreenHome(initialTab: 2,)));
-                                }, title: "Approve", content: "Are you sure want to approve this turf?");
-                              },
-                              width: 170,
-                            ),
+                                      Navigator.pop(context);
+                                     loadingWidget(context);
+                                      Provider.of<TurfProvider>(context,listen: false).upproveOrRejectTurfEvent(widget.turfModel.ownerId, widget.turfModel.turfId,"rejected");
+                                      await Future.delayed(Duration(seconds: 3));
+                                     Provider.of<TurfProvider>(context,listen: false).reviewPendigsTurfsEvent();
+                                     Navigator.pop(context);
+                                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>ScreenHome(initialTab: 2,)));
+                                    }, title: "Reject", content: "Are you sure want to Reject this turf?");
+                              })
+                            ],
                           )
                         ],
                       ),
@@ -179,7 +194,7 @@ class _ScreenTurfUpdateState extends State<ScreenTurfView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 30,
+                            height: 30, 
                           ),
                           HeadingText(text: "Image:"),
                           height10,
