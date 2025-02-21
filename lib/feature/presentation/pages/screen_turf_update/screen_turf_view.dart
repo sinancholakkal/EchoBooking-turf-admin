@@ -32,6 +32,7 @@ class _ScreenTurfUpdateState extends State<ScreenTurfView> {
   late TextEditingController _state;
   late TextEditingController _country;
   late TextEditingController _catogery;
+  late TextEditingController _rejectTurf;
 
   @override
   void initState() {
@@ -44,6 +45,7 @@ class _ScreenTurfUpdateState extends State<ScreenTurfView> {
     _state = TextEditingController(text: widget.turfModel.state);
     _country = TextEditingController(text: widget.turfModel.country);
     _catogery = TextEditingController(text: widget.turfModel.catogery);
+    _rejectTurf = TextEditingController(text: "You have to add more clear details");
     super.initState();
   }
 
@@ -60,7 +62,6 @@ class _ScreenTurfUpdateState extends State<ScreenTurfView> {
     _inclueds.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -143,37 +144,88 @@ class _ScreenTurfUpdateState extends State<ScreenTurfView> {
                           ),
 
                           height20,
-                          //Approve button--------------
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             spacing: 8,
                             children: [
+                              //Approve button--------------
                               CustomButton(
                                 text: "Approve Turf",
                                 onTap: () {
-                                  alertBox(context: context, onPressed: ()async{
-                                    Navigator.pop(context);
-                                   loadingWidget(context);
-                                    Provider.of<TurfProvider>(context,listen: false).upproveOrRejectTurfEvent(widget.turfModel.ownerId, widget.turfModel.turfId,"true");
-                                    await Future.delayed(Duration(seconds: 3));
-                                   Provider.of<TurfProvider>(context,listen: false).reviewPendigsTurfsEvent();
-                                   Navigator.pop(context);
-                                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>ScreenHome(initialTab: 2,)));
-                                  }, title: "Approve", content: "Are you sure want to approve this turf?");
+                                  alertBox(
+                                      context: context,
+                                      onPressed: () async {
+                                        Navigator.pop(context);
+                                        loadingWidget(context);
+                                        Provider.of<TurfProvider>(context,
+                                                listen: false)
+                                            .upproveOrRejectTurfEvent(
+                                              ownerId: widget.turfModel.ownerId,
+                                              turfId: widget.turfModel.turfId,
+                                                status: "true",
+                                                
+                                                );
+                                        await Future.delayed(
+                                            Duration(seconds: 3));
+                                        Provider.of<TurfProvider>(context,
+                                                listen: false)
+                                            .reviewPendigsTurfsEvent();
+                                        Navigator.pop(context);
+                                        Navigator.of(context)
+                                            .pushReplacement(MaterialPageRoute(
+                                                builder: (ctx) => ScreenHome(
+                                                      initialTab: 2,
+                                                    )));
+                                      },
+                                      title: "Approve",
+                                      content:
+                                          "Are you sure want to approve this turf?");
                                 },
                                 width: 170,
                               ),
-                              CustomButton(width: 160,text: "Reject Turf", onTap: (){
-                                alertBox(context: context, onPressed: ()async{
-                                      Navigator.pop(context);
-                                     loadingWidget(context);
-                                      Provider.of<TurfProvider>(context,listen: false).upproveOrRejectTurfEvent(widget.turfModel.ownerId, widget.turfModel.turfId,"rejected");
-                                      await Future.delayed(Duration(seconds: 3));
-                                     Provider.of<TurfProvider>(context,listen: false).reviewPendigsTurfsEvent();
-                                     Navigator.pop(context);
-                                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>ScreenHome(initialTab: 2,)));
-                                    }, title: "Reject", content: "Are you sure want to Reject this turf?");
-                              })
+                              //Rejection button--------------
+                              CustomButton(
+                                  width: 160,
+                                  text: "Reject Turf",
+                                  onTap: () {
+                                    alertBox(
+                                        context: context,
+                                        onPressed: () async {
+                                          Navigator.pop(context);
+                                          loadingWidget(context);
+                                          Provider.of<TurfProvider>(context,
+                                                  listen: false)
+                                              .upproveOrRejectTurfEvent(
+                                            ownerId: widget.turfModel.ownerId,
+                                            turfId: widget.turfModel.turfId,
+                                            status: "rejected*${_rejectTurf.text}",
+                                          );
+                                          await Future.delayed(
+                                              Duration(seconds: 3));
+                                          Provider.of<TurfProvider>(context,
+                                                  listen: false)
+                                              .reviewPendigsTurfsEvent();
+                                          Navigator.pop(context);
+                                          Navigator.of(context).pushReplacement(
+                                              MaterialPageRoute(
+                                                  builder: (ctx) => ScreenHome(
+                                                        initialTab: 2,
+                                                      )));
+                                        },
+                                        title: "Reject",
+                                        contentWidget: SizedBox(
+                                          width: 300,
+                                          child: TextFormField(
+                                            controller: _rejectTurf,
+                                            maxLines: 5,
+                                            
+                                            decoration: InputDecoration(
+                                                labelText: "Add reason",
+                                                border: OutlineInputBorder()),
+                                          ),
+                                        ));
+                                  })
                             ],
                           )
                         ],
@@ -194,7 +246,7 @@ class _ScreenTurfUpdateState extends State<ScreenTurfView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 30, 
+                            height: 30,
                           ),
                           HeadingText(text: "Image:"),
                           height10,

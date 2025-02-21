@@ -48,7 +48,7 @@ class TurfProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> upproveOrRejectTurfEvent(String ownerId, String turfId,String status) async {
+  Future<void> upproveOrRejectTurfEvent({required String ownerId,required String turfId,required String status}) async {
     final instance = FirebaseFirestore.instance;
     final owner = instance.collection("owner").doc(ownerId);
     await owner.collection("turfs").doc(turfId).update({

@@ -5,14 +5,15 @@ Future<dynamic> alertBox({
     required BuildContext context,
     required Function() onPressed,
         required String title,
-    required String content,
+    String? content,
+    Widget? contentWidget,
   }) {
     return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text(title),
-          content: Text(content),
+          content:content==null?contentWidget: Text(content),
           actions: [
             TextButton(
                 onPressed: () {
