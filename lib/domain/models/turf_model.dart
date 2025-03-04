@@ -11,10 +11,12 @@ class TurfModel {
   final String includes;
   final String landmark;
   final String reviewStatus;
+  final String viewAction;
   List<dynamic>images;
   final String ownerId;
   final String turfId;
   TurfModel({
+    this.viewAction = "View",
     required this.ownerId,
     required this.turfId,
     required this.ownerName,

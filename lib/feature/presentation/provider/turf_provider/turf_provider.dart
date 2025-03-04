@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class TurfProvider extends ChangeNotifier {
   //Fetching turfs for review------------------
-  Stream<List<TurfModel>> reviewPendigsTurfsEvent() async* {
+  Future<List<TurfModel>> reviewPendigsTurfsEvent() async {
     final instance = FirebaseFirestore.instance;
     List<TurfModel> turfs = [];
 
@@ -41,11 +41,12 @@ class TurfProvider extends ChangeNotifier {
                 images: turfData["images"]);
 
             turfs.add(turfModel);
-            yield List<TurfModel>.from(turfs);
+            
           }
         }
       }
     }
+    return turfs;
   }
 
   Future<void> upproveOrRejectTurfEvent({required String ownerId,required String turfId,required String status}) async {

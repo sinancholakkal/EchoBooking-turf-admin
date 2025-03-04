@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:echo_booking_admin/feature/presentation/pages/screen_home/screen_home.dart';
+import 'package:echo_booking_admin/feature/presentation/provider/owner_provider/owner_provider.dart';
 import 'package:echo_booking_admin/feature/presentation/provider/turf_provider/turf_provider.dart';
 import 'package:echo_booking_admin/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,7 +17,6 @@ void main() {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
     runApp(MyApp());
   }, (error, stack) {
-    print('Error in runZonedGuarded: $error');
   });
 }
 class MyApp extends StatelessWidget {
@@ -26,7 +26,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context)=>TurfProvider())
+        ChangeNotifierProvider(create: (context)=>TurfProvider()),
+        ChangeNotifierProvider(create: (context)=>OwnerProvider())
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,

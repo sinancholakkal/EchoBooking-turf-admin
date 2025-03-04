@@ -15,7 +15,8 @@ import 'package:provider/provider.dart';
 
 class ScreenTurfView extends StatefulWidget {
   final TurfModel turfModel;
-  ScreenTurfView({super.key, required this.turfModel});
+  final ActionTypeViewTurf type;
+  ScreenTurfView({super.key, required this.turfModel,required this.type});
 
   @override
   State<ScreenTurfView> createState() => _ScreenTurfUpdateState();
@@ -66,13 +67,21 @@ class _ScreenTurfUpdateState extends State<ScreenTurfView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: backGroundColor,
+        title: TextWidget(text: "Turf view"),
+        centerTitle: true,
+        iconTheme: IconThemeData(
+          color: kwhite
+        ),
+      ),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.all(40),
+              padding: const EdgeInsets.only(left: 40,right: 40,top: 20,bottom: 40),
               child: Row(
                 spacing: 10,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,7 +154,7 @@ class _ScreenTurfUpdateState extends State<ScreenTurfView> {
 
                           height20,
 
-                          Row(
+                        ( ActionTypeViewTurf.fromReview==widget.type)? Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             spacing: 8,
                             children: [
@@ -227,7 +236,7 @@ class _ScreenTurfUpdateState extends State<ScreenTurfView> {
                                         ));
                                   })
                             ],
-                          )
+                          ):SizedBox()
                         ],
                       ),
                     ),
@@ -270,4 +279,8 @@ class _ScreenTurfUpdateState extends State<ScreenTurfView> {
       ),
     );
   }
+}
+enum ActionTypeViewTurf{
+  fromReview,
+  fromView
 }
