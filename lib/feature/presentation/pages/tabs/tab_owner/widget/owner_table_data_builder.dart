@@ -64,7 +64,8 @@ class OwnerTableDataBuilder extends StatelessWidget {
             return TableDataRowWidget(
               values: values,
               data: data,
-              bookingOnPressed: () => Get.to(()=>ScreenBookingView(ownerId: data.ownerId)),
+              bookingOnPressed: () =>
+                  Get.to(() => ScreenBookingView(ownerId: data.ownerId)),
               viewOnPressed: () {
                 Get.to(
                   () => ScreenOwnerView(

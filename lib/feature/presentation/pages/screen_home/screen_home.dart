@@ -3,7 +3,7 @@ import 'package:echo_booking_admin/core/constent/text.dart';
 import 'package:echo_booking_admin/core/theme/colors.dart';
 import 'package:echo_booking_admin/feature/presentation/pages/tabs/tab_owner/owner.dart';
 import 'package:echo_booking_admin/feature/presentation/pages/tabs/tab_review/reviews.dart';
-import 'package:echo_booking_admin/feature/presentation/pages/tabs/user.dart';
+import 'package:echo_booking_admin/feature/presentation/pages/tabs/tab_review/tab_user/tab_user.dart';
 import 'package:echo_booking_admin/feature/presentation/widgets/heading_text.dart';
 import 'package:flutter/material.dart';
 

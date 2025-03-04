@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:echo_booking_admin/feature/presentation/pages/screen_home/screen_home.dart';
 import 'package:echo_booking_admin/feature/presentation/provider/owner_provider/owner_provider.dart';
 import 'package:echo_booking_admin/feature/presentation/provider/turf_provider/turf_provider.dart';
+import 'package:echo_booking_admin/feature/presentation/provider/user_provider/user_provider.dart';
 import 'package:echo_booking_admin/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context)=>TurfProvider()),
-        ChangeNotifierProvider(create: (context)=>OwnerProvider())
+        ChangeNotifierProvider(create: (context)=>OwnerProvider()),
+        ChangeNotifierProvider(create: (context)=>UserProvider())
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,

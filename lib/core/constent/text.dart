@@ -46,3 +46,10 @@ List<String> headingsOfReviewTurf = [
     "Payment Id"
    
   ];
+  List<String>headingOfUser=[
+    "No",
+    "Name",
+    "Gender",
+    "Phone",
+    "Address"
+  ];
