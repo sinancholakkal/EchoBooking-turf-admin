@@ -8,21 +8,26 @@ class TextFormWidget extends StatelessWidget {
   final int maxLine;
   final String labelText;
   final controller;
+  final bool readOnly;
+  String? Function(String?)? validator;
   TextFormWidget({
     required this.labelText,
     super.key,
     required this.controller,
     this.width = 600,
     this.maxLine = 1,
+    this.validator,
+    this.readOnly = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      child: TextField(
+      child: TextFormField(
+        validator:validator ,
         controller: controller,
-        readOnly: true,
+        readOnly: readOnly,
         maxLines: maxLine,
         style: TextStyle(color: kwhite),
         

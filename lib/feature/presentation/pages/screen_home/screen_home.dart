@@ -1,20 +1,20 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:echo_booking_admin/core/constent/text.dart';
 import 'package:echo_booking_admin/core/theme/colors.dart';
+import 'package:echo_booking_admin/feature/presentation/pages/screen_home/widget/side_menu_section.dart';
+import 'package:echo_booking_admin/feature/presentation/pages/tabs/tab_category/tab_category.dart';
 import 'package:echo_booking_admin/feature/presentation/pages/tabs/tab_owner/owner.dart';
 import 'package:echo_booking_admin/feature/presentation/pages/tabs/tab_review/reviews.dart';
-import 'package:echo_booking_admin/feature/presentation/pages/tabs/tab_review/tab_user/tab_user.dart';
+import 'package:echo_booking_admin/feature/presentation/pages/tabs/tab_user/tab_user.dart';
 import 'package:echo_booking_admin/feature/presentation/widgets/heading_text.dart';
 import 'package:flutter/material.dart';
 
 class ScreenHome extends StatefulWidget {
   int initialTab;
    ScreenHome({super.key,required this.initialTab});
-
   @override
   State<ScreenHome> createState() => _ScreenHomeState();
 }
-
 class _ScreenHomeState extends State<ScreenHome> {
   late PageController pageController;
   late SideMenuController sideMenu;
@@ -28,6 +28,7 @@ class _ScreenHomeState extends State<ScreenHome> {
       sideMenuItem(title: "Owners", icon: Icons.person),
       sideMenuItem(title: "Users", icon: Icons.supervised_user_circle_sharp),
       sideMenuItem(title: "Review", icon: Icons.pending_actions),
+      sideMenuItem(title: "Category", icon: Icons.category),
     ];
     sideMenu.addListener((index) {
       pageController.jumpToPage(index);
@@ -35,8 +36,6 @@ class _ScreenHomeState extends State<ScreenHome> {
     super.initState();
 
   }
-  
-
   SideMenuItem sideMenuItem({required String title, required IconData icon}) {
     return SideMenuItem(
         title: title,
@@ -63,36 +62,15 @@ class _ScreenHomeState extends State<ScreenHome> {
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SideMenu(
-            style: SideMenuStyle(
-                selectedColor: Colors.blue,
-                selectedTitleTextStyle: TextStyle(color: kwhite),
-                selectedIconColor: kwhite,
-                unselectedTitleTextStyle: TextStyle(color: Colors.white60),
-                unselectedIconColor: Colors.white60,
-                backgroundColor: const Color.fromARGB(255, 23, 24, 51)),
-            items: items,
-            controller: sideMenu,
-            title: Center(
-              child: SizedBox(
-                height: 200,
-                width: 200,
-                child: Image.asset(
-                  "asset/beckham-david-male-males-wallpaper-preview-removebg-preview.png",
-                ),
-              ),
-            ),
-            onDisplayModeChanged: (mode) {
-              print(mode);
-            },
-          ),
+          SideMenuSection(items: items, sideMenu: sideMenu),
           Expanded(
               child: PageView(
             controller: pageController,
             children: [
               TabOwners(),
               TabUsers(),
-              TabReviews()
+              TabReviews(),
+              TabCategory()
             ],
           ))
         ],
@@ -100,3 +78,4 @@ class _ScreenHomeState extends State<ScreenHome> {
     );
   }
 }
+
