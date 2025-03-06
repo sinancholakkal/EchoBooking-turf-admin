@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:echo_booking_admin/core/theme/colors.dart';
 import 'package:echo_booking_admin/feature/presentation/pages/screen_turf_update/widgets/text_form_widget.dart';
+import 'package:echo_booking_admin/feature/presentation/provider/category_provider/category_provider.dart';
 import 'package:echo_booking_admin/feature/presentation/widgets/costum_button.dart';
 import 'package:echo_booking_admin/feature/presentation/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TopCategorySection extends StatelessWidget {
   const TopCategorySection({
@@ -49,9 +53,13 @@ class TopCategorySection extends StatelessWidget {
                 controller: _controller),
             CustomButton(
               text: "Add Category",
-              onTap: () {
+              onTap: () async{
                 if (_formKey.currentState!.validate()) {
                   print(" Validated--------------------");
+                  await Provider.of<CategoryProvider>(context,listen: false).addCategory(category: _controller.text.trim(),id: getRandomId());
+                  _controller.clear();
+                  Provider.of<CategoryProvider>(context).fetchCategory();
+                  //Navigator.pop(context);
                 } else {
                   print("Not Validated--------------------");
                 }
@@ -69,5 +77,9 @@ class TopCategorySection extends StatelessWidget {
         ],
       ),
     );
+  }
+   String getRandomId() {
+    final Random random = Random();
+    return "category_${random.nextInt(10000000)}";
   }
 }
